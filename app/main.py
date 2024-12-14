@@ -1,10 +1,10 @@
 from fastapi import FastAPI
-from app.api.endpoints import upload, query
+
+from app.api import main_router
 
 app = FastAPI()
 
-app.include_router(upload.router, prefix="/v1", tags=["upload"])
-app.include_router(query.router, prefix="/v1", tags=["query"])
+app.include_router(main_router)
 
 if __name__ == "__main__":
     import uvicorn
