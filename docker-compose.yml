@@ -1,0 +1,23 @@
+services:
+  chroma:
+    image: ghcr.io/chroma-core/chroma:latest
+    container_name: chroma
+    ports:
+      - "8000:8000"
+    environment:
+      CHROMA_ANONYMOUS_TELEMETRY_ENABLED: "false"
+    volumes:
+      - "./chroma_data:/data"
+    restart: on-failure:5
+
+  fastapi:
+    build: ./fastapi
+    container_name: fastapi
+    depends_on:
+      - chroma
+    environment:
+      CHROMA_URL: "http://chroma:8000"
+      OPENAI_API_KEY: "${OPENAI_API_KEY}"
+    ports:
+      - "8080:8080"
+    restart: on-failure:5
