@@ -1,5 +1,7 @@
-from fastapi import APIRouter, File, UploadFile
-from app.models.request import QueryRequest
+from fastapi import APIRouter, File, UploadFile, Depends
+
+from app.core.dependencies import IOCR, get_ocr_engine
+from app.schemas.request import QueryRequest
 from app.services.llm_chain import get_qa_chain
 from app.services.embeddings import get_embedding_function
 from app.services.vectorstore import get_vectorstore
@@ -21,9 +23,10 @@ async def query(request: QueryRequest):
 
 
 @router.post("/upload")
-async def upload_pdf(file: UploadFile = File(...)):
+async def upload_pdf(file: UploadFile = File(...),
+                     ocr_engine: IOCR = Depends(get_ocr_engine)):
     content = await file.read()
-    full_text = extract_text_from_pdf(content)
+    full_text = extract_text_from_pdf(content, ocr_engine)
     docs = split_text_into_chunks(full_text)
     vectorstore.add_documents(docs)
     return {"status": "success", "num_chunks": len(docs)}
