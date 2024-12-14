@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from functools import lru_cache
 
 import easyocr
 from google.api_core.client_options import ClientOptions
@@ -44,6 +45,7 @@ class EasyOCROCR(IOCR):
         return ""
 
 
+@lru_cache()
 def get_ocr_engine() -> IOCR:
     match settings.OCR_ENGINE:
         case "gcp-vision":

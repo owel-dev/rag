@@ -4,7 +4,7 @@ from PIL import Image
 import os
 
 from app.core import settings
-from app.core.dependencies import IOCR
+from app.dependencies import IOCR
 
 
 def extract_text_from_pdf(pdf_bytes: bytes,
