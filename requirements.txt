@@ -8,6 +8,7 @@ pillow==11.0.0
 PyMuPDF==1.25.1
 easyocr==1.7.2
 google-cloud-vision==3.9.0
+pytesseract==0.3.13
 
 langchain-openai==0.2.12
 langchain-chroma==0.1.4

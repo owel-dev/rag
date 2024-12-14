@@ -2,6 +2,7 @@ from abc import ABC, abstractmethod
 from functools import lru_cache
 
 import easyocr
+import pytesseract
 from google.api_core.client_options import ClientOptions
 from google.cloud import vision
 from PIL import Image
@@ -45,10 +46,36 @@ class EasyOCROCR(IOCR):
         return ""
 
 
+class TesseractOCR(IOCR):
+    def __init__(self, lang: str = "kor"):
+        self.lang = lang
+
+    def do_ocr(self, content: bytes) -> str:
+        img = Image.open(io.BytesIO(content))
+        text = pytesseract.image_to_string(img, lang=self.lang)
+        return text.strip()
+
+
 @lru_cache()
+def get_gcp_vision_engine() -> IOCR:
+    return GcpVisionOCR(api_key=settings.GCP_API_KEY)
+
+
+@lru_cache()
+def get_easy_ocr_engine() -> IOCR:
+    return EasyOCROCR()
+
+
+@lru_cache()
+def get_tesseract_engine() -> IOCR:
+    return TesseractOCR()
+
+
 def get_ocr_engine() -> IOCR:
     match settings.OCR_ENGINE:
         case "gcp-vision":
-            return GcpVisionOCR(api_key=settings.GCP_API_KEY)
+            return get_gcp_vision_engine()
         case "easy-ocr":
-            return EasyOCROCR()
+            return get_easy_ocr_engine()
+        case "tesseract":
+            return get_tesseract_engine()

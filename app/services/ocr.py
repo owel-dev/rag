@@ -36,7 +36,8 @@ def extract_text_from_pdf(pdf_bytes: bytes,
         content = buffer.getvalue()
 
         page_text = ocr_engine.do_ocr(content)
-        all_texts.append(page_text)
+        cleaned_text = page_text.replace("\n", " ")
+        all_texts.append(cleaned_text)
 
     # 모든 페이지의 텍스트를 합쳐 반환
     return "\n\n".join(all_texts)
