@@ -5,11 +5,12 @@ from app.schemas.request import QueryRequest
 from app.services.llm_chain import get_qa_chain
 from app.services.vectorstore import get_vectorstore
 from app.services.ocr import extract_text_from_pdf
-from app.utils.text_preprocessing import split_text_into_chunks
+from app.services.text_preprocessing import split_text_into_chunks
 
 router = APIRouter()
 
 vectorstore = get_vectorstore()
+
 
 @router.post("/query")
 async def query(request: QueryRequest):

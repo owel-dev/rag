@@ -13,10 +13,9 @@ def get_vectorstore():
         chroma_server_http_port=settings.VECTORSTORE_PORT
     )
 
-    # Chroma 벡터스토어 초기화
     vectorstore = Chroma(
         collection_name="pdf_docs",
-        embedding_function=get_embedding_function(),  # 래퍼를 embedding_function으로 전달
+        embedding_function=get_embedding_function(),
         client_settings=client_settings
     )
 
