@@ -13,8 +13,8 @@ class Settings:
 
     VECTORSTORE_HOST = os.getenv("VECTORSTORE_HOST", "localhost")
     VECTORSTORE_PORT = int(os.getenv("VECTORSTORE_PORT", 8000))
-    VECTORSTORE_EMBED_PROVIDER = os.getenv("VECTORSTORE_EMBED_PROVIDER", "hugging-face")  # hugging-face, openai
-    VECTORSTORE_EMBED_MODEL = os.getenv("VECTORSTORE_EMBED_MODEL", "sentence-transformers/all-MiniLM-L6-v2")  # hugging-face, openai
+    VECTORSTORE_EMBED_PROVIDER = os.getenv("VECTORSTORE_EMBED_PROVIDER", "hugging-face")
+    VECTORSTORE_EMBED_MODEL = os.getenv("VECTORSTORE_EMBED_MODEL", "sentence-transformers/all-MiniLM-L6-v2")
 
     OCR_ENGINE = os.getenv("OCR_ENGINE", "easy-ocr")
     OCR_ENGINE_DPI = int(os.getenv("OCR_ENGINE_DPI", 70))
