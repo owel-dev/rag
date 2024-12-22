@@ -1,29 +1,32 @@
+
+### 프로젝트 디렉토리 구조
+
 ```bash
-fastapi/
-  ├─ app/
-  │   ├─ main.py                    # FastAPI 진입점: app 인스턴스 생성 및 라우트 등록
-  │   ├─ core/
-  │   │   ├─ config.py              # 설정 관련 파일: 환경변수 로드, API 키, 경로 설정
-  │   │   └─ __init__.py
-  │   ├─ apis/
-  │   │   ├─ endpoints/
-  │   │   │   ├─ upload.py          # /upload 엔드포인트 라우트: PDF 업로드 -> OCR -> 벡터 스토어 인덱싱
-  │   │   │   └─ query.py           # /query 엔드포인트 라우트: 사용자의 질의 -> RAG 파이프라인 -> 답변 반환
-  │   │   └─ __init__.py
-  │   ├─ services/
-  │   │   ├─ ocr.py                 # OCR 관련 로직: PDF -> 이미지 변환 -> Tesseract OCR -> 텍스트 추출
-  │   │   ├─ embeddings.py          # 임베딩 로직: OpenAI/HuggingFace Embeddings 초기화 및 제공
-  │   │   ├─ vectorstore.py         # 벡터 스토어 초기화 및 관리: Chroma 인덱스 생성/문서 추가/조회
-  │   │   ├─ llm_chain.py           # LLM 체인 설정: RetrievalQA 체인 생성, LLM/Retriever 연결
-  │   │   └─ __init__.py
-  │   ├─ models/
-  │   │   ├─ request.py             # Pydantic 모델 정의: QueryRequest 등 요청 바디 모델
-  │   │   └─ __init__.py
-  │   ├─ utils/
-  │   │   ├─ text_preprocessing.py  # 텍스트 전처리/스플릿팅 유틸: 긴 텍스트를 chunk로 분리
-  │   │   └─ __init__.py
-  │   └─ __init__.py
-  ├─ requirements.txt               # Python 의존성 리스트
-  ├─ Dockerfile                     # Docker 이미지를 위한 빌드 스크립트
-  └─ ... (기타 CI/CD, 테스트 코드 등)
+rag/
+├── app                       # FastAPI 애플리케이션 소스 폴더
+│   ├── core                  # 프로젝트 전역 설정, 구성 파일
+│   │   ├── config.py         # 환경 변수, 설정값 정의
+│   │   ├── __init__.py
+│   ├── dependencies          # 의존성(재사용 가능 코드) 관리
+│   │   ├── __init__.py       
+│   │   ├── ocr.py            # OCR 관련 함수, 클래스
+│   │   └── vectorstore.py    # 벡터 스토어 관련 함수, 클래스
+│   ├── main.py               # FastAPI 진입점(엔트리 포인트)
+│   ├── router                # 라우터(엔드포인트) 정의
+│   │   ├── endpoints.py      # API 경로 및 핸들러 함수
+│   │   ├── __init__.py
+│   ├── schemas               # Pydantic 모델 등 스키마 정의
+│   │   ├── __init__.py
+│   │   └── request.py        # 요청/응답 데이터 모델
+│   ├── services              # 서비스 레이어(실제 비즈니스 로직)
+│   │   ├── __init__.py
+│   │   ├── llm_chain.py      # LLM 관련 로직
+│   │   ├── ocr.py            # OCR 로직
+│   │   ├── text_preprocessing.py  # 텍스트 전처리 함수
+│   │   └── vectorstore.py         # 벡터 변환, 저장, 유사도 검색 로직
+│   └── test.py               # 테스트 스크립트(샘플 등)
+├── docker-compose.yml         # Docker Compose 설정 파일 (Chroma, fastapi)
+├── Dockerfile                 # Docker 이미지 빌드용 파일      
+├── README.md                  # 프로젝트 개요 및 문서
+└── requirements.txt           # Python 패키지 의존성 목록
 ```
