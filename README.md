@@ -4,6 +4,7 @@ FastAPI, Lagnchain, ChatGPT, Chroma 스펙으로 간단하게 구현한 RAG 시�
 1. .env.example 파일의 내용을 참고하여 .env 파일을 루트 경로에 생성합니다.
 2. .env파일의 내용을 채워줍니다.  
     2 - 1. `GCP_API_KEY` 환경변수는 OCR_ENGINE 으로 gcp-vision을 사용하지 않는다면 필수는 아닙니다.  
+    (한글 PDF 문서의 경우, OCR ENGINE 으로 GCP Vision API를 적극 추천합니다.)  
     2 - 2. `OPENAI_API_KEY` 환경변수와 `LLM_MODEL` 환경변수는 **필수로** 채워야 합니다.
 3. `docker compose up -d` 명령을 실행합니다.
 4. fastapi 컨테이너에서 python이 빌드된 후 (20초정도 걸림)
