@@ -23,5 +23,5 @@ def get_huggingface_embedding_function():
 def get_embedding_function():
     if settings.VECTORSTORE_EMBED_PROVIDER == "hugging-face":
         return get_huggingface_embedding_function()
-    else:
+    elif settings.VECTORSTORE_EMBED_PROVIDER == "openai":
         return get_openai_embedding_function()
