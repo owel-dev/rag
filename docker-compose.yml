@@ -11,13 +11,10 @@ services:
     restart: on-failure:5
 
   fastapi:
-    build: ./fastapi
+    build: ./
     container_name: fastapi
     depends_on:
       - chroma
-    environment:
-      CHROMA_URL: "http://chroma:8000"
-      OPENAI_API_KEY: "${OPENAI_API_KEY}"
     ports:
       - "8080:8080"
     restart: on-failure:5

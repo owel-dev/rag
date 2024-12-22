@@ -11,7 +11,7 @@ class Settings:
     OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
     GCP_API_KEY = os.getenv("GCP_API_KEY")
 
-    VECTORSTORE_HOST = os.getenv("VECTORSTORE_HOST", "localhost")
+    VECTORSTORE_HOST = os.getenv("VECTORSTORE_HOST", "chroma")
     VECTORSTORE_PORT = int(os.getenv("VECTORSTORE_PORT", 8000))
     VECTORSTORE_EMBED_PROVIDER = os.getenv("VECTORSTORE_EMBED_PROVIDER", "hugging-face")
     VECTORSTORE_EMBED_MODEL = os.getenv("VECTORSTORE_EMBED_MODEL", "sentence-transformers/all-MiniLM-L6-v2")
