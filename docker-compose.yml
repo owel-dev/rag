@@ -1,13 +1,13 @@
 services:
   chroma:
-    image: ghcr.io/chroma-core/chroma:latest
+    image: ghcr.io/chroma-core/chroma:0.5.23
     container_name: chroma
     ports:
       - "8000:8000"
     environment:
       CHROMA_ANONYMOUS_TELEMETRY_ENABLED: "false"
-    volumes:
-      - "./chroma_data:/data"
+#    volumes:
+#      - "./chroma_data:/chroma"
     restart: on-failure:5
 
   fastapi:
