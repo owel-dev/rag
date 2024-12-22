@@ -20,6 +20,8 @@ class Settings:
     OCR_ENGINE_DPI = int(os.getenv("OCR_ENGINE_DPI", 70))
     PDF_IMAGE_SAVE_DIR = os.getenv("PDF_IMAGE_SAVE_DIR", "pdf-images")
 
+    LLM_MODEL = os.getenv("LLM_MODEL")
+
     class Config:
         env_file = ".env"
         env_file_encoding = "utf-8"
