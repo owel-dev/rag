@@ -4,3 +4,6 @@ venv
 .env
 __pycache__
 pdf_images
+
+chroma_data
+token_whitelist.yaml
