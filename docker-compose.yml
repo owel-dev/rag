@@ -6,8 +6,8 @@ services:
       - "8000:8000"
     environment:
       CHROMA_ANONYMOUS_TELEMETRY_ENABLED: "false"
-#    volumes:
-#      - "./chroma_data:/chroma"
+    volumes:
+      - vector_data:/chroma/chroma
     restart: on-failure:5
 
   fastapi:
@@ -18,3 +18,7 @@ services:
     ports:
       - "8080:8080"
     restart: on-failure:5
+
+volumes:
+  vector_data:
+    driver: local
