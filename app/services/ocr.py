@@ -29,7 +29,6 @@ def extract_text_from_pdf(pdf_bytes: bytes,
 
           # 기존 파일이 존재하면 파일 내용을 읽어 사용
         if os.path.exists(text_path):
-            print("pass")
             with open(text_path, "r", encoding="utf-8") as text_file:
                 page_text = text_file.read()
         else:

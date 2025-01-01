@@ -25,6 +25,6 @@ async def upload_pdf(file: UploadFile = File(...),
                      ocr_engine: IOCR = Depends(get_ocr_engine)):
     content = await file.read()
     full_text = extract_text_from_pdf(content, ocr_engine, file.filename)
-    docs = split_text_into_chunks(full_text)
+    docs = split_text_into_chunks(full_text, file.filename)
     vectorstore.add_documents(docs)
     return {"status": "success", "num_chunks": len(docs)}
