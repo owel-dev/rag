@@ -24,21 +24,30 @@ def extract_text_from_pdf(pdf_bytes: bytes,
 
     all_texts = []
     for page_index in range(len(doc)):
-        page = doc[page_index]
-        # 페이지를 Pixmap으로 변환 (이미지화)
-        pix = page.get_pixmap(dpi=settings.OCR_ENGINE_DPI)
+          # 텍스트 파일 경로 생성
+        text_path = os.path.join(save_dir, f"{base_filename}_{page_index}.txt")
 
-        # PIL Image로 변환
-        img = Image.frombytes("RGB", [pix.width, pix.height], pix.samples)
+          # 기존 파일이 존재하면 파일 내용을 읽어 사용
+        if os.path.exists(text_path):
+            print("pass")
+            with open(text_path, "r", encoding="utf-8") as text_file:
+                page_text = text_file.read()
+        else:
+            # 페이지를 Pixmap으로 변환 (이미지화)
+            page = doc[page_index]
+            pix = page.get_pixmap(dpi=settings.OCR_ENGINE_DPI)
 
-        buffer = io.BytesIO()
-        img.save(buffer, format="PNG")
-        content = buffer.getvalue()
+            # PIL Image로 변환
+            img = Image.frombytes("RGB", [pix.width, pix.height], pix.samples)
 
-        page_text = ocr_engine.do_ocr(content)
+            buffer = io.BytesIO()
+            img.save(buffer, format="PNG")
+            content = buffer.getvalue()
 
-        if save_dir:
-            text_path = os.path.join(save_dir, f"{base_filename}_{page_index}.txt")
+            # OCR 처리
+            page_text = ocr_engine.do_ocr(content)
+
+            # 텍스트 파일 저장
             with open(text_path, "w", encoding="utf-8") as text_file:
                 text_file.write(page_text)
 
