@@ -19,6 +19,7 @@ class Settings:
     OCR_ENGINE = os.getenv("OCR_ENGINE", "easy-ocr")
     OCR_ENGINE_DPI = int(os.getenv("OCR_ENGINE_DPI", 70))
     PDF_IMAGE_SAVE_DIR = os.getenv("PDF_IMAGE_SAVE_DIR", "pdf-images")
+    OCR_TEXT_SAVE_DIR = os.getenv("OCR_TEXT_SAVE_DIR", "/var/lib/rag/ocr_texts")
 
     LLM_MODEL = os.getenv("LLM_MODEL")
 
