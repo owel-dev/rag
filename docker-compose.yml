@@ -1,4 +1,15 @@
 services:
+  rag:
+    build: ./
+    container_name: rag
+    depends_on:
+      - chroma
+    ports:
+      - "8080:8080"
+    volumes:
+      - ocr_texts:/var/lib/rag/ocr_texts
+    restart: on-failure:5
+
   chroma:
     image: ghcr.io/chroma-core/chroma:0.5.23
     container_name: chroma
@@ -10,15 +21,8 @@ services:
       - vector_data:/chroma/chroma
     restart: on-failure:5
 
-  fastapi:
-    build: ./
-    container_name: fastapi
-    depends_on:
-      - chroma
-    ports:
-      - "8080:8080"
-    restart: on-failure:5
-
 volumes:
   vector_data:
+    driver: local
+  ocr_texts:
     driver: local
