@@ -50,9 +50,7 @@ def extract_text_from_pdf(pdf_bytes: bytes,
             with open(text_path, "w", encoding="utf-8") as text_file:
                 text_file.write(page_text)
 
-        # 텍스트 클리닝 및 수집
-        cleaned_text = page_text.replace("\n", " ")
-        all_texts.append(cleaned_text)
+        all_texts.append(page_text)
 
     # 모든 페이지의 텍스트를 합쳐 반환
-    return "\n\n".join(all_texts)
+    return "\n".join(all_texts)
